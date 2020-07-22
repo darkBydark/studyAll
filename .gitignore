@@ -1,2 +1,8 @@
-# Project exclude paths
-/nettyServer/target/
+/target/
+/doc/
+/.idea/
+/.settings/
+.project
+.classpath
+*.iml
+*.log
