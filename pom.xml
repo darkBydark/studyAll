@@ -13,6 +13,7 @@
         <module>ZKclient</module>
         <module>IO</module>
         <module>Disruptor</module>
+        <module>curator</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
