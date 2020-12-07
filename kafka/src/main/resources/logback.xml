@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="1 minutes">
+	<property name="USE_MODULE" value="proditem-web" />
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+	    <encoder><pattern>%d{HH:mm:ss.SSS} %-5level %logger - %msg%n</pattern></encoder>
+	</appender>
+	<root level="INFO">
+	    <appender-ref ref="stdout" />
+	</root>
+
+
+	<logger name="org" level="INFO" />
+	<logger name="io" level="ERROR" />
+
+
+	
+</configuration>

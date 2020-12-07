@@ -10,14 +10,11 @@ public class zkClient {
     public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
         final CountDownLatch countDownLatch = new CountDownLatch(1);
 
-        ZooKeeper zk = new ZooKeeper("127.0.0.1:2181", 3000, new Watcher() {
-            @Override
-            public void process(WatchedEvent event) {
-                if (event.getState() == Event.KeeperState.SyncConnected) {
-                    countDownLatch.countDown();
-                }
-                System.out.println("Watch =>" + event.getType());
+        ZooKeeper zk = new ZooKeeper("127.0.0.1:2181", 3000, event -> {
+            if (event.getState() == Watcher.Event.KeeperState.SyncConnected) {
+                countDownLatch.countDown();
             }
+            System.out.println("Watch =>" + event.getType());
         });
         countDownLatch.await();
 

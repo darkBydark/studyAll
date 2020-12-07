@@ -3,6 +3,10 @@ package com.example.redis;
 import io.netty.util.concurrent.FastThreadLocal;
 import io.netty.util.internal.StringUtil;
 import lombok.extern.flogger.Flogger;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
 
 import java.lang.ref.SoftReference;
 import java.util.*;
@@ -55,18 +59,12 @@ public class test {
 
 
     public static void main(String[] args) {
-        /*软引用对象中指向了一个长度为300000000个元素的整形数组*/
-        ThreadLocal<Integer[]> threadLocal = new ThreadLocal<Integer[]>();
+        Config config = new Config(); config.useSingleServer().setAddress("redis://127.0.0.1:6379");
 
-        Thread thread = new Thread(() -> {
-            threadLocal.set(new Integer[300000000]);
-            System.out.println(threadLocal.get());
+        RedissonClient redisson = Redisson.create(config);
 
-            System.gc();
-            System.out.println(threadLocal.get());
-        });
-        thread.start();
+        RLock lock = redisson.getLock("anyLock");
+        lock.lock();
 
-//        FastThreadLocal
     }
 }

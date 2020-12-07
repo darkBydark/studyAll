@@ -13,6 +13,8 @@ import io.netty.handler.timeout.IdleStateHandler;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.AbstractQueuedSynchronizer;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class EchoServer {
     private final int port;
@@ -29,6 +31,8 @@ public class EchoServer {
 //        }
 //        int port = Integer.parseInt(args[0]);
         try {
+            ReentrantLock lock = new ReentrantLock();
+            lock.tryLock()
             new EchoServer(8090).start();
         } catch (InterruptedException e) {
             e.printStackTrace();
